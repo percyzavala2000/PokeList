@@ -11,7 +11,7 @@ type PokemonCardProps = {
 export const PokemonCard = ({pokemon}: PokemonCardProps) => {
   // render
   return (
-    <Card style={styles.cardContainer}>
+    <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
       <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
         {pokemon.name}
         {'\n#' + pokemon.id}
