@@ -1633,6 +1633,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNImageColors (1.5.2):
+    - React-Core
   - RNScreens (4.9.2):
     - DoubleConversion
     - glog
@@ -1773,6 +1775,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageColors (from `../node_modules/react-native-image-colors`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1919,6 +1922,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-masked-view/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageColors:
+    :path: "../node_modules/react-native-image-colors"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -1995,6 +2000,7 @@ SPEC CHECKSUMS:
   ReactCommon: 0c097b53f03d6bf166edbcd0915da32f3015dd90
   RNCMaskedView: 308c763227e237d4d260bd8841870e099572bb3e
   RNGestureHandler: 8b1080a6db0be82dbca18550d6212b885bfab6b2
+  RNImageColors: 977420bca17290f111104bcfcbfb698982cbfbba
   RNScreens: b32d0d59b53acb574fa795a9343591ef4e7ab7c2
   RNVectorIcons: bd818296a51dc2bb8c3bd97a3ca399df1afe216d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
@@ -2002,4 +2008,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d14eb94f1b874dee8f63d0f7bac52391423fb34a
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
