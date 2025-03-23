@@ -1,39 +1,44 @@
-import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import React, { use } from 'react';
+import {View, StyleSheet, Image, Pressable} from 'react-native';
 import {Pokemon} from '../../../domain/entities/pokemon';
 import {Card, Text} from 'react-native-paper';
-import { FadeInImage } from '../ui/FadeInImage';
+import {FadeInImage} from '../ui/FadeInImage';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../navigator/NavigationStack';
 
 type PokemonCardProps = {
   pokemon: Pokemon;
 };
 
 export const PokemonCard = ({pokemon}: PokemonCardProps) => {
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
   // render
   return (
-    <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
-      <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
-        {pokemon.name}
-        {'\n#' + pokemon.id}
-      </Text>
-      {/* pokeball background image */}
-      <View style={styles.pokeballContainer}>
-        <Image
-          source={require('../../../assets/pokeball-light.png')}
-          style={styles.pokeball}
-        />
-      </View>
-      {/* pokemon image */}
-      <FadeInImage
-        uri={pokemon.avatar}
-        style={styles.pokemonImage}
-       
-      />
-      {/* types */}
-      <Text style={[styles.name,{marginTop:35}]} variant="bodyLarge" lineBreakMode="middle">
-        {pokemon.types.map((type) => type).join(', ')}
-      </Text>
-    </Card>
+    <Pressable style={{flex:1}}  onPress={()=>navigation.navigate('PokemonScreen',{pokemonId:pokemon.id})}>
+      <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
+        <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
+          {pokemon.name}
+          {'\n#' + pokemon.id}
+        </Text>
+        {/* pokeball background image */}
+        <View style={styles.pokeballContainer}>
+          <Image
+            source={require('../../../assets/pokeball-light.png')}
+            style={styles.pokeball}
+          />
+        </View>
+        {/* pokemon image */}
+        <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
+        {/* types */}
+        <Text
+          style={[styles.name, {marginTop: 35}]}
+          variant="bodyLarge"
+          lineBreakMode="middle">
+          {pokemon.types.map(type => type).join(', ')}
+        </Text>
+      </Card>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({
