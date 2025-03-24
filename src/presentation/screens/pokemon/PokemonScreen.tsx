@@ -87,6 +87,70 @@ const pokeballImg = isDark ? require('../../../assets/pokeball-light.png') : req
         />
       ) }
     />
+    {/* habilities */}
+    <Text style={ styles.subTitle }>Habilities</Text>
+    <FlatList
+      data={ data.abilities }
+      horizontal
+      keyExtractor={ item => item }
+      showsVerticalScrollIndicator={ false }
+      style={ { marginHorizontal: 20 } }
+      renderItem={ ( { item } ) => (
+        <Chip selectedColor='white' > {Formatter.capitalize(item)} </Chip>
+      ) }
+    />  
+    {/* Stats */}
+    <Text style={ styles.subTitle }>Stats</Text>
+    <FlatList
+      data={ data.stats }
+      keyExtractor={ item => item.name }
+      horizontal
+      showsVerticalScrollIndicator={ false }
+      style={ { marginHorizontal: 20 } }
+      renderItem={ ( { item } ) => (
+        <View style={ styles.statsContainer }>
+          <Text style={ { flex: 1, color:'white'} }>
+            { Formatter.capitalize( item.name ) }
+          </Text>
+          <Text style={ { color:'white' } }>
+            { item.value }
+          </Text>
+        </View>
+      ) }
+    />
+
+    {/* Moves */ }
+    <Text style={ styles.subTitle }>Moves</Text>
+    <FlatList
+      data={ data.moves }
+      keyExtractor={ item => item.name }
+      horizontal
+      showsVerticalScrollIndicator={ false }
+     centerContent
+      renderItem={ ( { item } ) => (
+        <View style={ styles.statsContainer }>
+          <Text style={ { flex: 1, color:'white'} }>
+            { Formatter.capitalize( item.name ) }
+          </Text>
+          <Text style={ { color:'white'} }>
+            { item.level }
+          </Text>
+        </View>
+      ) }
+    />
+
+    {/* Games */ }
+    <Text style={ styles.subTitle }>Games</Text>
+    <FlatList
+      data={ data.games }
+      keyExtractor={ item => item }
+      horizontal
+      showsVerticalScrollIndicator={ false }
+      centerContent
+      renderItem={ ( { item } ) => (
+        <Chip selectedColor='white' > {Formatter.capitalize(item)}  </Chip>
+      ) }
+    />
   
   
     <View style={ { height: 100 } } />
