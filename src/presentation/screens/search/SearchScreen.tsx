@@ -6,8 +6,9 @@ import {TextInput,Text} from 'react-native-paper';
 import { ActivityIndicator } from 'react-native';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
 import { useQuery } from '@tanstack/react-query';
-import { getPokemonNameWithId } from '../../../actions/pokemons';
+import { getPokemonNameWithId, getPokemonsByIds } from '../../../actions/pokemons';
 import { Pokemon } from '../../../domain/entities/pokemon';
+import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
 
 export const SearchScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -36,6 +37,17 @@ export const SearchScreen = () => {
    
      
   }, [term]);
+
+  const {isLoading:isLoadingPokemon,data:dataPokemons=[]}=useQuery({
+    queryKey:['pokemons','by',pokemonNameIdList],
+    queryFn:()=>getPokemonsByIds(pokemonNameIdList.map(pokemon=>pokemon.id)),
+ staleTime:1000*60*5,
+    enabled:term.length>2
+  })
+
+  if(isLoading){
+    return <FullScreenLoader />
+  }
   // render
   return (
     <View style={[globalTheme.globalMargin, {paddingTop: top + 10}]}>
@@ -47,16 +59,19 @@ export const SearchScreen = () => {
         onChangeText={setTerm}
         value={term}
       />
-      <ActivityIndicator style={{padding:20}} />
-      <Text >{JSON.stringify(pokemonNameIdList,null,2)}</Text>
+      {
+        isLoadingPokemon && <ActivityIndicator style={{padding:20}} />
+      }
+    
 
       <FlatList
-        data={[] as Pokemon[]}
+        data={dataPokemons}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         numColumns={2}
         style={{paddingTop: top + 20}}
         renderItem={({item}) => <PokemonCard pokemon={item} />}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={<View style={{height: 100}} />}
       />
     </View>
   );
