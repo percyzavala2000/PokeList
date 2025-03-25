@@ -9,10 +9,13 @@ import { useQuery } from '@tanstack/react-query';
 import { getPokemonNameWithId, getPokemonsByIds } from '../../../actions/pokemons';
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
+import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 
 export const SearchScreen = () => {
   const {top} = useSafeAreaInsets();
   const [term, setTerm] = useState('')
+
+  const debouncedValue=useDebouncedValue(term)
 
   const {isLoading,data=[]}=useQuery({
     queryKey:['pokemons','all'],
@@ -21,22 +24,22 @@ export const SearchScreen = () => {
   })
 //aplicar debounce
   const pokemonNameIdList = useMemo(() => {
-    if(!isNaN(Number(term))){
-      const pokemon = data.find(pokemon=>pokemon.id===Number(term)) 
+    if(!isNaN(Number(debouncedValue))){
+      const pokemon = data.find(pokemon=>pokemon.id===Number(debouncedValue)) 
       return pokemon ? [pokemon]:[]
       
     }
-    if(term.trim().length===0){
+    if(debouncedValue.trim().length===0){
       return []
     }
-    if(term.length<3){
+    if(debouncedValue.length<3){
       return []
     }
 
-    return data.filter(pokemon=>pokemon.name.includes(term.toLocaleLowerCase()))  
+    return data.filter(pokemon=>pokemon.name.includes(debouncedValue.toLocaleLowerCase()))  
    
      
-  }, [term]);
+  }, [debouncedValue]);
 
   const {isLoading:isLoadingPokemon,data:dataPokemons=[]}=useQuery({
     queryKey:['pokemons','by',pokemonNameIdList],
@@ -62,7 +65,6 @@ export const SearchScreen = () => {
       {
         isLoadingPokemon && <ActivityIndicator style={{padding:20}} />
       }
-    
 
       <FlatList
         data={dataPokemons}
@@ -73,6 +75,10 @@ export const SearchScreen = () => {
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{height: 100}} />}
       />
-    </View>
+   
+    </View> 
+
   );
+
 };
+
