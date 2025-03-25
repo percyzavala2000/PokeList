@@ -29,7 +29,7 @@ Una aplicación móvil para explorar y buscar Pokémon, construida con React Nat
 
 1. Clona el repositorio:
    ```sh
-   git clone https://github.com/tu-usuario/PokeList.git 
+   git clone https://github.com/percyzavala2000/PokeList.git 
     ```
 2. Instala las dependencias:
     ```sh
